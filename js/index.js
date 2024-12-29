@@ -160,6 +160,7 @@ function updateErrorState(state) {
 /**
  * Calls
  */
+// TODO: Organize this bit more
 (async () => {
   // Target
   const usersData = await fetchData(url);
