@@ -168,38 +168,40 @@ function slicesForPagination(arr, itemsPerPage) {
 }
 
 /**
- * Event Listeners
- */
-
-// Pagination thinking out loud
-// I have data stored statically .. should I call the api with every option update instead?
-// Data stored --> slices --> arr of arrs? hashmap? set?
-// arrows--> trigger something on click--> ++ or --
-
-/**
  * Calls
  */
 // TODO: Organize this bit more
-// {
-//   (async () => {
-//     // Target
-//     const usersData = await fetchData(url);
-//     const companyNames = extractCompanyNames(usersData);
-//     const usersTable = document.getElementById("usersTable");
+{
+  (async () => {
+    // Target
+    const usersData = await fetchData(url);
+    const companyNames = extractCompanyNames(usersData);
+    const usersTable = document.getElementById("usersTable");
 
-//     const companyNamesCsvElement = document.getElementById("companyNamesCsv");
+    const companyNamesCsvElement = document.getElementById("companyNamesCsv");
 
-//     populateTable(usersTable, usersData);
-//     populateCsvElement(companyNamesCsvElement, companyNames);
+    populateTable(usersTable, usersData);
+    populateCsvElement(companyNamesCsvElement, companyNames);
+    /**
+     * Event Listeners
+     */
+    // Search input
+    // TODO: Highlight matching rows instead of filtering.....
+    let searchInput = document.getElementById("searchInput");
+    searchInput.addEventListener("keyup", (e) => {
+      let dataToDisplay = filterBySearchTerm(usersData, e.target.value);
+      populateTable(usersTable, dataToDisplay);
+    });
 
-//     // TODO: Highlight matching rows instead of filtering.....
-//     let searchInput = document.getElementById("searchInput");
-//     searchInput.addEventListener("keyup", (e) => {
-//       console.log(usersData);
-//       console.log(e);
-
-//       let dataToDisplay = filterBySearchTerm(usersData, e.target.value);
-//       populateTable(usersTable, dataToDisplay);
-//     });
-//   })();
-// }
+    //Pagination buttons
+    const paginatedUsersData = slicesForPagination(usersData, 5);
+    const prevPageBtn = document.getElementById("prevPageBtn");
+    const nextPageBtn = document.getElementById("nextPageBtn");
+    let currentPageIndex = 0;
+    populateTable(usersTable, paginatedUsersData[currentPageIndex]);
+    nextPageBtn.addEventListener("click", () => {
+      currentPageIndex++;
+      populateTable(usersTable, paginatedUsersData[currentPageIndex]);
+    });
+  })();
+}
