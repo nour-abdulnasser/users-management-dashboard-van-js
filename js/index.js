@@ -153,7 +153,7 @@ function updateErrorState(state) {
   }
 }
 // Slice Paginate
-function sliceForPagination(arr, itemsPerPage) {
+function slicesForPagination(arr, itemsPerPage) {
   const pagesCount = Math.ceil(arr.length / itemsPerPage);
   const slices = [];
 
@@ -164,6 +164,7 @@ function sliceForPagination(arr, itemsPerPage) {
 
     slices.push(arr.slice(startIndex, endIndex + 1));
   }
+  return slices;
 }
 
 /**
