@@ -70,6 +70,9 @@ const extractCompanyNames = (dataArr) => {
   return dataArr.map((dataItem) => dataItem.company.name);
 };
 
+const filterBySearchTerm = (arr, term) => {
+  return arr.filter((el) => el.name.toLowerCase().includes(term.toLowerCase()));
+};
 /**
  *
  * Document content functions
@@ -150,10 +153,10 @@ function updateErrorState(state) {
   }
 }
 
-// const searchTerm = "leanne";
-// Populate by search term?? just filter the data arr methinks
-// dataArr.filter((el)->el.name.tolowercase().includes(searchTerm.tolowercase()))
-// Now we add an ev listener probs
+/**
+ * Event Listeners
+ */
+
 
 /**
  * Calls
@@ -162,14 +165,16 @@ function updateErrorState(state) {
   // Target
   const usersData = await fetchData(url);
   const companyNames = extractCompanyNames(usersData);
-
-  //   const filteredData = usersData.filter((el) =>
-  //     el.name.toLowerCase().includes(searchTerm.toLowerCase())
-  //   );
-
   const usersTable = document.getElementById("usersTable");
+
   const companyNamesCsvElement = document.getElementById("companyNamesCsv");
 
-  populateTable(usersTable, usersData);
+  //   populateTable(usersTable, usersData);
   populateCsvElement(companyNamesCsvElement, companyNames);
+
+  let searchInput = document.getElementById("searchInput");
+  searchInput.addEventListener("onkeydown", (e) => {
+    let dataToDisplay = filterBySearchTerm(usersData, e.target.value);
+    populateTable(usersTable, dataToDisplay);
+  });
 })();
