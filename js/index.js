@@ -70,9 +70,6 @@ const extractCompanyNames = (dataArr) => {
   return dataArr.map((dataItem) => dataItem.company.name);
 };
 
-const filterBySearchTerm = (arr, term) => {
-  return arr.filter((el) => el.name.toLowerCase().includes(term.toLowerCase()));
-};
 /**
  *
  * Document content functions
@@ -132,6 +129,9 @@ function populateCsvElement(element, arr) {
   const str = arr.join(", ");
   element.textContent = str;
 }
+const filterBySearchTerm = (arr, term) => {
+  return arr.filter((el) => el.name.toLowerCase().includes(term.toLowerCase()));
+};
 
 // Loading message
 function updateLoadingState(state) {
@@ -152,6 +152,19 @@ function updateErrorState(state) {
     errorLayout.style.display = "none";
   }
 }
+// Slice Paginate
+function sliceForPagination(arr, itemsPerPage) {
+  const pagesCount = Math.ceil(arr.length / itemsPerPage);
+  const slices = [];
+
+  for (let pageIndex = 0; pageIndex < pagesCount; pageIndex++) {
+    let startIndex = pageIndex * itemsPerPage;
+    let endIndex = startIndex + itemsPerPage - 1;
+    // slice excludes the last index so the minus 1 is redundant in this function
+
+    slices.push(arr.slice(startIndex, endIndex + 1));
+  }
+}
 
 /**
  * Event Listeners
@@ -162,29 +175,30 @@ function updateErrorState(state) {
 // Data stored --> slices --> arr of arrs? hashmap? set?
 // arrows--> trigger something on click--> ++ or --
 
-
 /**
  * Calls
  */
 // TODO: Organize this bit more
-(async () => {
-  // Target
-  const usersData = await fetchData(url);
-  const companyNames = extractCompanyNames(usersData);
-  const usersTable = document.getElementById("usersTable");
+// {
+//   (async () => {
+//     // Target
+//     const usersData = await fetchData(url);
+//     const companyNames = extractCompanyNames(usersData);
+//     const usersTable = document.getElementById("usersTable");
 
-  const companyNamesCsvElement = document.getElementById("companyNamesCsv");
+//     const companyNamesCsvElement = document.getElementById("companyNamesCsv");
 
-  populateTable(usersTable, usersData);
-  populateCsvElement(companyNamesCsvElement, companyNames);
+//     populateTable(usersTable, usersData);
+//     populateCsvElement(companyNamesCsvElement, companyNames);
 
-  // TODO: Highlight matching rows instead of filtering.....
-  let searchInput = document.getElementById("searchInput");
-  searchInput.addEventListener("keyup", (e) => {
-    console.log(usersData);
-    console.log(e);
+//     // TODO: Highlight matching rows instead of filtering.....
+//     let searchInput = document.getElementById("searchInput");
+//     searchInput.addEventListener("keyup", (e) => {
+//       console.log(usersData);
+//       console.log(e);
 
-    let dataToDisplay = filterBySearchTerm(usersData, e.target.value);
-    populateTable(usersTable, dataToDisplay);
-  });
-})();
+//       let dataToDisplay = filterBySearchTerm(usersData, e.target.value);
+//       populateTable(usersTable, dataToDisplay);
+//     });
+//   })();
+// }
