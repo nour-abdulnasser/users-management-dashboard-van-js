@@ -199,8 +199,17 @@ function slicesForPagination(arr, itemsPerPage) {
     const nextPageBtn = document.getElementById("nextPageBtn");
     let currentPageIndex = 0;
     populateTable(usersTable, paginatedUsersData[currentPageIndex]);
-    nextPageBtn.addEventListener("click", () => {
+    nextPageBtn.addEventListener("click", (e) => {
       currentPageIndex++;
+      populateTable(usersTable, paginatedUsersData[currentPageIndex]);
+    });
+    prevPageBtn.addEventListener("click", (e) => {
+    //   if (currentPageIndex === 0) {
+    //     // this.disabled = true;
+    //     e.target.disabled = true;
+    //   }
+      currentPageIndex--;
+
       populateTable(usersTable, paginatedUsersData[currentPageIndex]);
     });
   })();
