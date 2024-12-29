@@ -8,21 +8,16 @@
   <body>
     <!-- TODO: Make headers dynamic  -->
     <div class="container">
-      <div class="table-section">
+      <div class="table-section" id="tableSection">
         <table id="usersTable">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Phone</th>
-              <th>Company Name</th>
-            </tr>
-          </thead>
-          <tbody id="usersTableBody"></tbody>
+          <thead></thead>
+          <tbody></tbody>
         </table>
       </div>
-      <div class="error-layout">error</div>
-      <div class="loading-layout">loading</div>
+      <div class="fallback-section">
+        <div class="error-layout" id="errorLayout">error</div>
+        <div class="loading-layout" id="loadingLayout">loading</div>
+      </div>
     </div>
     <script src="./js/index.js"></script>
   </body>
