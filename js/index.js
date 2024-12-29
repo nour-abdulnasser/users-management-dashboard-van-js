@@ -1,10 +1,23 @@
 "use strict";
 
+/**
+ * Data dependent variables
+*/
 const url = "https://jsonplaceholder.typicode.com/users";
 
+
+
+/**
+ * Document content
+*/
+const headers = ["name", "email", "phone", "companyName"];
 let loadingFlag = false;
 let errorFlag = false;
 
+
+/**
+ * API interactive functions 
+ */
 function fetchData(url) {
   loadingFlag = true;
 
@@ -26,7 +39,6 @@ function fetchData(url) {
 
   //   console.log(data);
 }
-const headers = ["name", "email", "phone", "companyName"];
 
 const adaptedData = (dataArr) => {
   return dataArr.map((dataItem) => ({
@@ -40,6 +52,12 @@ const adaptedData = (dataArr) => {
 const extractCompanies = (dataArr) => {
   return dataArr.map((dataItem) => dataItem.company);
 };
+
+
+/**
+ * 
+ * Document content functions
+ */
 function populateTable(table, dataArr) {
   if (!dataArr) {
     console.error("No data to populate the table.");
@@ -73,6 +91,12 @@ function populateTable(table, dataArr) {
   });
 }
 
+
+
+
+/**
+ * Calls
+ */
 (async () => {
   // Target
   const usersData = await fetchData(url);
