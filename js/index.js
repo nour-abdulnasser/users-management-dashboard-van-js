@@ -40,7 +40,7 @@ const adaptedData = (dataArr) => {
 const extractCompanies = (dataArr) => {
   return dataArr.map((dataItem) => dataItem.company);
 };
-async function populateTable(table, dataArr) {
+function populateTable(table, dataArr) {
   if (!dataArr) {
     console.error("No data to populate the table.");
     return;
