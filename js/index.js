@@ -116,7 +116,6 @@ function populateTable(table, dataArr) {
     tableBody.appendChild(rowElement);
   });
 }
-
 function populateCsvElement(element, arr) {
   // Method 1: We can generate string first, then pop it in text content
   //Using reduce --> Might need clean up (removing last comma)
@@ -149,7 +148,11 @@ function updateErrorState(state) {
     errorLayout.style.display = "none";
   }
 }
-//
+
+const searchTerm = "leanne";
+// Populate by search term?? just filter the data arr methinks
+// dataArr.filter((el)->el.name.tolowercase().includes(searchTerm.tolowercase()))
+// Now we add an ev listener probs
 
 /**
  * Calls
@@ -158,8 +161,14 @@ function updateErrorState(state) {
   // Target
   const usersData = await fetchData(url);
   const companyNames = extractCompanyNames(usersData);
+
+  const filteredData = usersData.filter((el) =>
+    el.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   const usersTable = document.getElementById("usersTable");
   const companyNamesCsvElement = document.getElementById("companyNamesCsv");
-  populateTable(usersTable, usersData);
+
+  populateTable(usersTable, filteredData);
   populateCsvElement(companyNamesCsvElement, companyNames);
 })();
