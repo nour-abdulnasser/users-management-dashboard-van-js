@@ -157,7 +157,6 @@ function updateErrorState(state) {
  * Event Listeners
  */
 
-
 /**
  * Calls
  */
@@ -169,11 +168,13 @@ function updateErrorState(state) {
 
   const companyNamesCsvElement = document.getElementById("companyNamesCsv");
 
-  //   populateTable(usersTable, usersData);
+  populateTable(usersTable, usersData);
   populateCsvElement(companyNamesCsvElement, companyNames);
-
   let searchInput = document.getElementById("searchInput");
-  searchInput.addEventListener("onkeydown", (e) => {
+  searchInput.addEventListener("keyup", (e) => {
+    console.log(usersData);
+    console.log(e);
+
     let dataToDisplay = filterBySearchTerm(usersData, e.target.value);
     populateTable(usersTable, dataToDisplay);
   });
