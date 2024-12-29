@@ -67,6 +67,9 @@ const adaptedData = (dataArr) => {
 const extractCompanies = (dataArr) => {
   return dataArr.map((dataItem) => dataItem.company);
 };
+const extractCompanyNames = (dataArr) => {
+  return dataArr.map((dataItem) => dataItem.company.name);
+};
 
 /**
  *
@@ -99,7 +102,7 @@ function populateTable(table, dataArr) {
     headerElement.textContent = header.title;
     headerRowElement.appendChild(headerElement);
   });
-  tableHead.appendChild(headerRowElement)
+  tableHead.appendChild(headerRowElement);
 
   dataArr.forEach((dataItem) => {
     // 1. Create row
@@ -113,6 +116,20 @@ function populateTable(table, dataArr) {
     tableBody.appendChild(rowElement);
   });
 }
+
+function populateCsvElement(element, arr) {
+  // Method 1: We can generate string first, then pop it in text content
+  //Using reduce --> Might need clean up (removing last comma)
+  //   const str = arr.reduce(
+  //     (accString, currentEl) => (accString = currentEl + ","),
+  //     ""
+  //   );
+
+  // Method 2: Using join
+  const str = arr.join(", ");
+  element.textContent = str;
+}
+
 // Loading message
 function updateLoadingState(state) {
   // Update global state
@@ -140,6 +157,9 @@ function updateErrorState(state) {
 (async () => {
   // Target
   const usersData = await fetchData(url);
+  const companyNames = extractCompanyNames(usersData);
   const usersTable = document.getElementById("usersTable");
+  const companyNamesCsvElement = document.getElementById("companyNamesCsv");
   populateTable(usersTable, usersData);
+  populateCsvElement(companyNamesCsvElement, companyNames);
 })();
