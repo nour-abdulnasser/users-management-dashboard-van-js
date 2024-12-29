@@ -1,5 +1,4 @@
 "use strict";
-
 /**
  * Data dependent variables
  */
@@ -76,6 +75,8 @@ const extractCompanyNames = (dataArr) => {
  * Document content functions
  */
 function populateTable(table, dataArr) {
+  // TODO: "Handle no data to display"
+
   if (!dataArr) {
     console.error("No data to populate the table.");
     return;
@@ -149,7 +150,7 @@ function updateErrorState(state) {
   }
 }
 
-const searchTerm = "leanne";
+// const searchTerm = "leanne";
 // Populate by search term?? just filter the data arr methinks
 // dataArr.filter((el)->el.name.tolowercase().includes(searchTerm.tolowercase()))
 // Now we add an ev listener probs
@@ -162,13 +163,13 @@ const searchTerm = "leanne";
   const usersData = await fetchData(url);
   const companyNames = extractCompanyNames(usersData);
 
-  const filteredData = usersData.filter((el) =>
-    el.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  //   const filteredData = usersData.filter((el) =>
+  //     el.name.toLowerCase().includes(searchTerm.toLowerCase())
+  //   );
 
   const usersTable = document.getElementById("usersTable");
   const companyNamesCsvElement = document.getElementById("companyNamesCsv");
 
-  populateTable(usersTable, filteredData);
+  populateTable(usersTable, usersData);
   populateCsvElement(companyNamesCsvElement, companyNames);
 })();
