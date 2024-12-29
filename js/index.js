@@ -171,6 +171,8 @@ function updateErrorState(state) {
 
   populateTable(usersTable, usersData);
   populateCsvElement(companyNamesCsvElement, companyNames);
+
+  // TODO: Highlight matching rows instead of filtering.....
   let searchInput = document.getElementById("searchInput");
   searchInput.addEventListener("keyup", (e) => {
     console.log(usersData);
