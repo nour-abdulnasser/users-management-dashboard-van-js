@@ -157,6 +157,12 @@ function updateErrorState(state) {
  * Event Listeners
  */
 
+// Pagination thinking out loud
+// I have data stored statically .. should I call the api with every option update instead?
+// Data stored --> slices --> arr of arrs? hashmap? set?
+// arrows--> trigger something on click--> ++ or --
+
+
 /**
  * Calls
  */
